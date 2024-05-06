@@ -43,10 +43,12 @@ const server = http.createServer((req, res) => {
           break;
       }
       if (contentType == "text/html" && extname == "") req.url += ".html";
-
-      fs.readFile(path.join(__dirname, "public", req.url), (err, content) => {
+      let file = path.join("public", req.url);
+      console.log(file);
+      fs.readFile(file, (err, content) => {
         if (err) {
           if (err.code == "ENOENT") {
+            console.log("404");
             fs.readFile(path.join("public", "404.html"), (err, content) => {
                 res.writeHead(404, { "Content-Type": "text/html" });
                 res.end(content, "utf8");
