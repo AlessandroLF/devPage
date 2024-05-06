@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/build/static/css/main.d19d498d.css",
-    "main.js": "/build/static/js/main.b7071efd.js",
+    "main.css": "/build/static/css/main.ce3bd112.css",
+    "main.js": "/build/static/js/main.ac8b4664.js",
     "static/media/prechochi.jpg": "/build/static/media/prechochi.5a9942b550aad68986c9.jpg",
     "index.html": "/build/index.html",
-    "main.d19d498d.css.map": "/build/static/css/main.d19d498d.css.map",
-    "main.b7071efd.js.map": "/build/static/js/main.b7071efd.js.map"
+    "main.ce3bd112.css.map": "/build/static/css/main.ce3bd112.css.map",
+    "main.ac8b4664.js.map": "/build/static/js/main.ac8b4664.js.map"
   },
   "entrypoints": [
-    "static/css/main.d19d498d.css",
-    "static/js/main.b7071efd.js"
+    "static/css/main.ce3bd112.css",
+    "static/js/main.ac8b4664.js"
   ]
 }
