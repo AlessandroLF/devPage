@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.css": "/build/static/css/main.ce3bd112.css",
-    "main.js": "/build/static/js/main.ac8b4664.js",
+    "main.css": "/build/static/css/main.20e32c4d.css",
+    "main.js": "/build/static/js/main.7294e549.js",
     "static/media/prechochi.jpg": "/build/static/media/prechochi.5a9942b550aad68986c9.jpg",
+    "static/media/iLogo.jpg": "/build/static/media/iLogo.53f8c8eaba652f988bae.jpg",
     "index.html": "/build/index.html",
-    "main.ce3bd112.css.map": "/build/static/css/main.ce3bd112.css.map",
-    "main.ac8b4664.js.map": "/build/static/js/main.ac8b4664.js.map"
+    "main.20e32c4d.css.map": "/build/static/css/main.20e32c4d.css.map",
+    "main.7294e549.js.map": "/build/static/js/main.7294e549.js.map"
   },
   "entrypoints": [
-    "static/css/main.ce3bd112.css",
-    "static/js/main.ac8b4664.js"
+    "static/css/main.20e32c4d.css",
+    "static/js/main.7294e549.js"
   ]
 }
