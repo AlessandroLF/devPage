@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/build/static/css/main.20e32c4d.css",
-    "main.js": "/build/static/js/main.7294e549.js",
-    "static/media/prechochi.jpg": "/build/static/media/prechochi.5a9942b550aad68986c9.jpg",
-    "static/media/iLogo.jpg": "/build/static/media/iLogo.53f8c8eaba652f988bae.jpg",
+    "main.css": "/build/static/css/main.851aff32.css",
+    "main.js": "/build/static/js/main.8b26d05d.js",
+    "static/media/ProfPic.png": "/build/static/media/ProfPic.be15d8c43d71fcf4918a.png",
+    "static/media/iLogo.png": "/build/static/media/iLogo.fe938bfaafa4c321daf4.png",
     "index.html": "/build/index.html",
-    "main.20e32c4d.css.map": "/build/static/css/main.20e32c4d.css.map",
-    "main.7294e549.js.map": "/build/static/js/main.7294e549.js.map"
+    "main.851aff32.css.map": "/build/static/css/main.851aff32.css.map",
+    "main.8b26d05d.js.map": "/build/static/js/main.8b26d05d.js.map"
   },
   "entrypoints": [
-    "static/css/main.20e32c4d.css",
-    "static/js/main.7294e549.js"
+    "static/css/main.851aff32.css",
+    "static/js/main.8b26d05d.js"
   ]
 }
