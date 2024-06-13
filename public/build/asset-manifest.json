@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/build/static/css/main.851aff32.css",
+    "main.css": "/build/static/css/main.898ed9a2.css",
     "main.js": "/build/static/js/main.8b26d05d.js",
     "static/media/ProfPic.png": "/build/static/media/ProfPic.be15d8c43d71fcf4918a.png",
     "static/media/iLogo.png": "/build/static/media/iLogo.fe938bfaafa4c321daf4.png",
     "index.html": "/build/index.html",
-    "main.851aff32.css.map": "/build/static/css/main.851aff32.css.map",
+    "main.898ed9a2.css.map": "/build/static/css/main.898ed9a2.css.map",
     "main.8b26d05d.js.map": "/build/static/js/main.8b26d05d.js.map"
   },
   "entrypoints": [
-    "static/css/main.851aff32.css",
+    "static/css/main.898ed9a2.css",
     "static/js/main.8b26d05d.js"
   ]
 }
