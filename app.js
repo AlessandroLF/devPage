@@ -3,9 +3,6 @@ const path = require("path");
 const fs = require("fs");
 const db = require("./dbconnect");
 
-const resp = db.Create();
-console.log(resp);
-
 const server = http.createServer((req, res) => {
   console.log("Request: " + req.url);
   let contentType = "text/html";
@@ -25,6 +22,7 @@ const server = http.createServer((req, res) => {
     
     case "/signUp":{
       const data = { name, email, passw, public } = req.body;
+      console.log(data);
       const ret = db.SignUp(data);
       console.log(ret);
       break;
