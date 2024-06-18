@@ -7,7 +7,7 @@ const server = http.createServer((req, res) => {
   console.log("Request: " + req.url);
   let contentType = "text/html";
 //Router, decide wich code to run for the requested url
-  switch(req.url){
+  switch (req.url){
     case "/": //Home page
       res.writeHead(200, { "Content-Type": contentType });
       fs.readFile(path.join("public", "build", "index.html"), (err, content) => {
@@ -28,11 +28,12 @@ const server = http.createServer((req, res) => {
         });
         req.on('end', ()=>{
           const data = JSON.parse(body);
-          const ret = db.SignUp(data);
-          console.log(ret);
-          res.setHeader('Access-Control-Allow-Origin', '*');
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify(ret));
+            db.SignUp(data, (ret)=>{
+            console.log(JSON.stringify(ret));
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify(ret));
+          });
         });
       }
       break;
