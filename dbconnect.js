@@ -30,6 +30,7 @@ module.exports.Create = ()=>{
 module.exports.SignUp = async(data)=>{
     data.password = await argon2.hash(data.password);
     console.log(data.password)
+    console.log(JSON.stringify(data))
     const q = "INSERT INTO users (name, email, password, public) VALUES ($1, $2, $3, $4) RETURNING *;";
     pool.query(q, [data.name, data.email, data.password, data.pubilc], (err, res)=>{
         if(err){
