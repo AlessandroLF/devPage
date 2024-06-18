@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const db = require("./dbconnect");
 
-await db.Create();
+db.Create();
 
 const server = http.createServer((req, res) => {
   console.log("Request: " + req.url);
