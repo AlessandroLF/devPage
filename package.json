@@ -9,6 +9,7 @@
   "author": "Alessandro Lombardo",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.40.3",
     "pg": "^8.12.0"
   }
 }

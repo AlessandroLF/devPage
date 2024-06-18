@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const db = require("./dbconnect");
 
-db.SignIn();
+db.Create();
 
 const server = http.createServer((req, res) => {
   console.log("Request: " + req.url);
@@ -21,7 +21,12 @@ const server = http.createServer((req, res) => {
             res.end(content);
       });
       break;
-
+    
+    case "/signUp":
+      const data = { name, email, passw, public } = req.body;
+      const ret = db.SignUp(data);
+      console.log(ret);
+      break;
       //REST API here
 
     default:{ //If the request is not a reserved word return the requested asset if it's public

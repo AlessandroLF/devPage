@@ -1,4 +1,5 @@
-const {Pool} = require('pg')
+const {Pool} = require('pg');
+const argon2 = require('argon2');
 
 const pool = new Pool({
     connectionString: 'postgres://sandrodv:KbchegyrTxBEW8SOGRRpPT7ycoIKzfxb@dpg-cpoh65uehbks73ej5h20-a/devpage_db',
@@ -8,8 +9,27 @@ const pool = new Pool({
 });
 
 module.exports.Create = ()=>{
-    const q = "CREATE TABLE users (id SERIAL PRIMARY KEY, name VARCHAR(50) NOT NULL, email VARCHAR(100) UNIQUE, public BIT NOT NULL, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP);";
-    pool.query(q, (err, res)=>{
+    pool.query("DROP TABLE users", (err)=>{
+        if(!err){
+            const q = "CREATE TABLE users (id SERIAL PRIMARY KEY, name VARCHAR(60) NOT NULL UNIQUE, email VARCHAR(60) UNIQUE, passw VARCHAR(100) NOT NULL, public BIT NOT NULL, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP);";
+            pool.query(q, (err, res)=>{
+                if(err){
+                    return({err: err});
+                }else{
+                    return({suc: res});
+                }
+            });
+        }else{
+            console.log("Error doping table: " + err);
+            return({err: err});
+        }
+    });
+}
+
+module.exports.SignUp = async(data)=>{
+    data.passw = await argon2.hash(data.passw);
+    const q = "INSERT INTO users (name, email, passw, public) VALUES ($1, $2, $3, $4) RETURNING *;";
+    pool.query(q, [data.name, data.email, data.passw, data.pubilc], (err, res)=>{
         if(err){
             return({err: err});
         }else{
@@ -18,9 +38,20 @@ module.exports.Create = ()=>{
     });
 }
 
-module.exports.SignUp = (data)=>{
-    const q = "INSERT INTO users (name, email, public) VALUES ($1, $2, $3) RETURNING *;";
-    pool.query(q, data, (err, res)=>{
+module.exports.LogIn = async(data)=>{
+    const res = pool.query('SELECT passw FROM users WHERE name=$1;', [data.name]);
+    const user = res.rows[0];
+    const match = await argon2.verify(user.passw, data.passw);
+    if(match)
+        return({suc: true});
+    else
+        return({err: "Invalid credentials"});
+}
+
+module.exports.Get = (data)=>{
+    const cols = data.cols.join(', ');
+    let q = 'SELECT ${cols} FROM users WHERE ${cond}=${val}';
+    pool.query(q, {cols: cols, cond: data.cond, val: data.val}, (err, res)=>{
         if(err){
             return({err: err});
         }else{
