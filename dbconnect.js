@@ -16,6 +16,7 @@ module.exports.Create = ()=>{
                 if(err){
                     return({err: err});
                 }else{
+                    console.log("Success!! " + res);
                     return({suc: res});
                 }
             });
@@ -51,7 +52,7 @@ module.exports.LogIn = async(data)=>{
 module.exports.Get = (data)=>{
     const cols = data.cols.join(', ');
     let q = 'SELECT ${cols} FROM users WHERE ${cond}=${val}';
-    pool.query(q, {cols: cols, cond: data.cond, val: data.val}, (err, res)=>{
+    pool.query(q, {cols: data.cols, cond: data.cond, val: data.val}, (err, res)=>{
         if(err){
             return({err: err});
         }else{
