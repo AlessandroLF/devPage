@@ -29,5 +29,4 @@ module.exports.SignIn = ()=>{
             console.log(res.rows);
         }
     });
-    console.log(result.rows);
 }
