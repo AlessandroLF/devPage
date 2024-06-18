@@ -21,6 +21,8 @@ const server = http.createServer((req, res) => {
       break;
     
     case "/signUp":{
+      console.log(req);
+      console.log(req.body);
       const data = { name, email, passw, public } = req.body;
       console.log(data);
       const ret = db.SignUp(data);
