@@ -27,6 +27,7 @@ const server = http.createServer((req, res) => {
           body += chunck.toString();
         });
         req.on('end', ()=>{
+          console.log(body);
           const data = JSON.parse(body);
             db.SignUp(data, (ret)=>{
             console.log(JSON.stringify(ret));
