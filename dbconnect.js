@@ -17,7 +17,17 @@ module.exports.Create = ()=>{
     });
 }
 
-module.exports.SignIn = async()=>{
-    const result = await pool.query("INSERT into");
+module.exports.SignIn = ()=>{
+    const q = "INSERT into users values (name, email, date) values $1, $2, $3 returning *;";
+    const now = new Date();
+    const result = pool.query(q, ["Sandro", "lombardoalessandro25@hotmail.com", now.toDateString()], (err, res)=>{
+        if(err){
+            console.log("Err:");
+            console.log(err);
+        }else{
+            console.log('Success!');
+            console.log(res.rows);
+        }
+    });
     console.log(result.rows);
 }
