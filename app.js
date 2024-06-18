@@ -21,12 +21,20 @@ const server = http.createServer((req, res) => {
       break;
     
     case "/signUp":{
-      console.log(req);
-      console.log(req.body);
-      const data = { name, email, passw, public } = req.body;
-      console.log(data);
-      const ret = db.SignUp(data);
-      console.log(ret);
+      if(req.method === 'POST'){
+        let body = '';
+        req.on('data', chunck =>{
+          body += chunck.toString();
+        });
+        req.on('end', ()=>{
+          const data = JSON.parse(body);
+          const ret = db.SignUp(data);
+          console.log(ret);
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.writeHead(200, { "Content-Type": "application/json" });
+          res.end(JSON.stringify(ret));
+        });
+      }
       break;
     }
     
