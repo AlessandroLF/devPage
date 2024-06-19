@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/build/static/css/main.fe81e4c8.css",
-    "main.js": "/build/static/js/main.c7f0a9a7.js",
+    "main.css": "/build/static/css/main.b844d591.css",
+    "main.js": "/build/static/js/main.864ee6a3.js",
     "static/media/ProfPic.png": "/build/static/media/ProfPic.be15d8c43d71fcf4918a.png",
     "index.html": "/build/index.html",
-    "main.fe81e4c8.css.map": "/build/static/css/main.fe81e4c8.css.map",
-    "main.c7f0a9a7.js.map": "/build/static/js/main.c7f0a9a7.js.map"
+    "main.b844d591.css.map": "/build/static/css/main.b844d591.css.map",
+    "main.864ee6a3.js.map": "/build/static/js/main.864ee6a3.js.map"
   },
   "entrypoints": [
-    "static/css/main.fe81e4c8.css",
-    "static/js/main.c7f0a9a7.js"
+    "static/css/main.b844d591.css",
+    "static/js/main.864ee6a3.js"
   ]
 }

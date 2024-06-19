@@ -32,7 +32,6 @@ module.exports.SignUp = async(data)=>{
     const q = "INSERT INTO users (name, email, password, public) VALUES ($1, $2, $3, $4) RETURNING *;";
     try{
         const res = await pool.query(q, [data.name, data.email, data.password, data.public ? 1 : 0]);
-        console.log(res);
         return(res);
     }catch(e){
         console.log('Error al inscribirse');
