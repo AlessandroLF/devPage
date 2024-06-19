@@ -29,8 +29,7 @@ const server = http.createServer((req, res) => {
           body += chunck.toString();
         });
         req.on('end', ()=>{
-          console.log(body);
-          const data = JSON.parse(body);
+            const data = JSON.parse(body);
             db.SignUp(data, (ret)=>{
             console.log(JSON.stringify(ret));
             res.setHeader('Access-Control-Allow-Origin', '*');
@@ -43,9 +42,18 @@ const server = http.createServer((req, res) => {
     }
     
     case "/logIn":{
-      const data = { name, passw } = req.body;
-      const ret = db.LogIn(data);
-      console.log(ret);
+        let body = '';
+        req.on('data', chunck =>{
+          body += chunck.toString();
+        });
+        req.on('end', ()=>{
+            const data = JSON.parse(body);
+            db.LogIn(data, (ret)=>{
+            console.log(JSON.stringify(ret));
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(JSON.stringify(ret));
+        });
       break;
     }
     
