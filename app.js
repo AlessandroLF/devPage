@@ -29,7 +29,7 @@ const server = http.createServer((req, res) => {
         req.on('end', async()=>{
             const data = JSON.parse(body);
             const ret = await db.SignUp(data);
-            console.log(JSON.stringify(ret));
+            console.log('LogInResponse: ',JSON.stringify(ret));
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.writeHead(200, { "Content-Type": "application/json" });
             res.end(JSON.stringify(ret));
