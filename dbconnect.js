@@ -40,13 +40,18 @@ module.exports.SignUp = async(data)=>{
 }
 
 module.exports.LogIn = async(data)=>{
-    const res = pool.query('SELECT password FROM users WHERE name=$1;', [data.name]);
-    const user = res.rows[0];
-    const match = await argon2.verify(user.password, data.password);
-    if(match)
-        return({suc: true});
-    else
-        return({err: "Invalid credentials"});
+    try{
+        const res = await pool.query('SELECT password FROM users WHERE name=$1;', [data.name]);
+        const user = res.rows[0];
+        const match = await argon2.verify(user.password, data.password);
+        if(match)
+            return({suc: true});
+        else
+            return({err: "Invalid credentials"});
+    }catch(err){
+        console.log('Error buscando usuario: ', err);
+        return({err: 'Database error'});
+    }
 }
 
 module.exports.Get = (data)=>{
