@@ -3,8 +3,6 @@ const path = require("path");
 const fs = require("fs");
 const db = require("./dbconnect");
 
-db.Create();
-
 const server = http.createServer((req, res) => {
   console.log("Request: " + req.url);
   let contentType = "text/html";
