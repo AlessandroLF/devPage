@@ -49,10 +49,11 @@ const server = http.createServer((req, res) => {
         req.on('end', ()=>{
             const data = JSON.parse(body);
             db.LogIn(data, (ret)=>{
-            console.log(JSON.stringify(ret));
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify(ret));
+              console.log(JSON.stringify(ret));
+              res.setHeader('Access-Control-Allow-Origin', '*');
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify(ret));
+            });
         });
       break;
     }
