@@ -26,14 +26,13 @@ const server = http.createServer((req, res) => {
         req.on('data', chunck =>{
           body += chunck.toString();
         });
-        req.on('end', ()=>{
+        req.on('end', async()=>{
             const data = JSON.parse(body);
-            db.SignUp(data, (ret)=>{
-            console.log(JSON.stringify(ret));
+            const ret = await db.SignUp(data);
+            console.log(JSON.stringify(ret.rows));
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify(ret));
-          });
+            res.end(JSON.stringify(ret.rows));
         });
       }
       break;
