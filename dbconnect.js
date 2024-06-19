@@ -33,9 +33,9 @@ module.exports.SignUp = async(data)=>{
     pool.query(q, [data.name, data.email, data.password, data.public ? 1 : 0], (err, res)=>{
         if(err){
             console.log(err);
-            return({err: err});
+            return(err);
         }else{
-            return({res: res});
+            return(res);
         }
     });
 }
