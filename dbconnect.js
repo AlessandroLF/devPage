@@ -35,6 +35,7 @@ module.exports.SignUp = async(data)=>{
         console.log('error');
         return({'err': err});
     }else{
+        console.log(res.rows);
         return(res.rows);
     }
 }
