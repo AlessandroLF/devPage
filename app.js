@@ -50,14 +50,18 @@ const server = http.createServer((req, res) => {
         req.on('data', chunck =>{
           body += chunck.toString();
         });
-        req.on('end', ()=>{
+        req.on('end', async()=>{
             const data = JSON.parse(body);
-            db.LogIn(data, (ret)=>{
-              console.log(JSON.stringify(ret));
-              res.setHeader('Access-Control-Allow-Origin', '*');
-              res.writeHead(200, { "Content-Type": "application/json" });
-              res.end(JSON.stringify(ret));
-            });
+            const ret = await db.LogIn(data)
+            if(ret.err){
+              console.log('Error on querry: ', ret.err);
+              res.write(JSON.stringify(ret));
+              res.end();
+            }else{
+              console.log('Delivered: ', ret);
+              res.write(JSON.stringify(ret));
+              res.end();
+            }
         });
       break;
     }
