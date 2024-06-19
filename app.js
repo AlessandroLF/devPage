@@ -29,10 +29,17 @@ const server = http.createServer((req, res) => {
         req.on('end', async()=>{
             const data = JSON.parse(body);
             const ret = await db.SignUp(data);
-            console.log('LogInResponse: ',JSON.stringify(ret));
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.end(JSON.stringify(ret));
+            if(ret.err){
+              console.log('Error on querry: ', ret.err);
+              res.setHeader('Access-Control-Allow-Origin', '*');
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify(ret));
+            }else{
+              console.log('Delivered: ', ret);
+              res.setHeader('Access-Control-Allow-Origin', '*');
+              res.writeHead(200, { "Content-Type": "application/json" });
+              res.end(JSON.stringify(ret));
+            }
         });
       }
       break;
