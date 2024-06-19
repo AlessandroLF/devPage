@@ -32,7 +32,7 @@ module.exports.SignUp = async(data)=>{
     console.log(data.password)
     console.log(JSON.stringify(data))
     const q = "INSERT INTO users (name, email, password, public) VALUES ($1, $2, $3, $4) RETURNING *;";
-    pool.query(q, [data.name, data.email, data.password, data.public], (err, res)=>{
+    pool.query(q, [data.name, data.email, data.password, data.public ? 1 : 0], (err, res)=>{
         if(err){
             console.log(err);
             return({err: err});
