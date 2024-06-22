@@ -29,13 +29,18 @@ module.exports.Create = ()=>{
 
 module.exports.SignUp = async(data)=>{
     data.password = await argon2.hash(data.password);
-    const q = "INSERT INTO users (name, email, password, public) VALUES ($1, $2, $3, $4) RETURNING *;";
+    const q = "INSERT INTO users (name, email, password, public) VALUES ($1, $2, $3, $4) RETURNING id;";
     try{
         const res = await pool.query(q, [data.name, data.email, data.password, data.public ? 1 : 0]);
-        return(res);
+        if(res.rowCount)
+            return({suc: true});
+        else
+            console.log('Unexpected response not error', res);
     }catch(e){
-        console.log('Error al inscribirse');
-        return({'err': e});
+        const detail = e.detail;
+        const key = detail.split('(')[1].split(')')[0];
+        const val = detail.split('(')[2].split(')')[0];
+        return({err: 'Duplicate account', key: key, val: val});
     }
 }
 
@@ -57,7 +62,7 @@ module.exports.LogIn = async(data)=>{
 module.exports.Get = (data)=>{
     const cols = data.cols.join(', ');
     let q = 'SELECT ${columns} FROM users WHERE ${condition}=${value}';
-    pool.query(q, {columns: data.columns, condition: data.condition, value: data.value}, (err, res)=>{
+    pool.query(q, {columns: cols, condition: data.condition, value: data.value}, (err, res)=>{
         if(err){
             return({err: err});
         }else{
