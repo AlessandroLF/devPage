@@ -1,7 +1,7 @@
 const http = require("http");
 const path = require("path");
 const fs = require("fs");
-const db = require("./dbconnect");
+const Db = require("./dbconnect");
 
 const server = http.createServer((req, res) => {
   console.log("Request: " + req.url);
@@ -30,7 +30,7 @@ const server = http.createServer((req, res) => {
         });
         req.on('end', async()=>{
             const data = JSON.parse(body);
-            const ret = await db.SignUp(data);
+            const ret = await Db.SignUp(data);
             res.write(JSON.stringify(ret));
             res.end();
         });
@@ -48,7 +48,7 @@ const server = http.createServer((req, res) => {
       req.on('end', async()=>{
           const data = JSON.parse(body);
           console.log('Data: ', data);
-          const ret = await db.LogIn(data);
+          const ret = await Db.LogIn(data);
           if(ret.err){
             console.log('Error on querry: ', ret.err);
           }else{
@@ -61,9 +61,24 @@ const server = http.createServer((req, res) => {
     }
     
     case "/get":{
-      const data = { cols, cond, val } = req.body;
-      const ret = db.Get(data);
-      console.log(ret);
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.writeHead(200, { "Content-Type": "application/json" });
+      let body = '';
+      req.on('data', chunck =>{
+        body += chunck.toString();
+      });
+      req.on('end', async()=>{
+          const data = JSON.parse(body);
+          console.log('Data: ', data);
+          const ret = await Db.Get(data);
+          if(ret.err){
+            console.log('Error on querry: ', ret.err);
+          }else{
+            console.log('Delivered: ', ret);
+          }
+          res.write(JSON.stringify(ret));
+          res.end();
+      });
       break;
     }
 

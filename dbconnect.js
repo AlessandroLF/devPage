@@ -57,18 +57,23 @@ module.exports.LogIn = async(data)=>{
             return({err: "Invalid credentials"});
     }catch(err){
         console.log('Error buscando usuario: ', err);
-        return({err: 'Database error'});
+        return({err: 'Invalid credentials'});
     }
 }
 
-module.exports.Get = (data)=>{
+module.exports.Get = async(data)=>{
     const cols = data.cols.join(', ');
     let q = 'SELECT ${columns} FROM users WHERE ${condition}=${value}';
-    pool.query(q, {columns: cols, condition: data.condition, value: data.value}, (err, res)=>{
-        if(err){
-            return({err: err});
-        }else{
+    try{
+        const res = await pool.query(q, {columns: cols, condition: data.condition, value: data.value});
+        if(res.rowCount > 0){
             return({rows: res.rows});
+        }else{
+            return({err: 'No results'});
         }
-    });
+    }catch(err){
+        console.log('Error at get: ', err.err)
+        return({err: 'Database error'});
+    }
+    
 }
