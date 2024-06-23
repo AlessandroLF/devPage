@@ -72,7 +72,7 @@ module.exports.Get = async(data)=>{
             return({err: 'No results'});
         }
     }catch(err){
-        console.log('Error at get: ', err.err)
+        console.log('Error at get: ', err)
         return({err: 'Database error'});
     }
     
