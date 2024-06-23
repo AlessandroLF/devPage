@@ -63,7 +63,7 @@ module.exports.LogIn = async(data)=>{
 
 module.exports.Get = async(data)=>{
     const cols = data.cols.join(', ');
-    let q = 'SELECT ${columns} FROM users WHERE ${condition}=${value}';
+    let q = 'SELECT $1 FROM users WHERE $2=$3';
     try{
         const res = await pool.query(q, [cols, data.condition, data.value]);
         if(res.rowCount > 0){
