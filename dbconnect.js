@@ -63,9 +63,14 @@ module.exports.LogIn = async(data)=>{
 
 module.exports.Get = async(data)=>{
     const cols = data.cols.join(', ');
-    let q = 'SELECT $1 FROM users WHERE $2=$3';
+    let q = 'SELECT $1 FROM users';
+    let params = [cols];
+    if(data.condition){
+        q += ' WHERE $2=$3';
+        params.append(data.condition).append(data.value);
+    }
     try{
-        const res = await pool.query(q, [cols, data.condition, data.value]);
+        const res = await pool.query(q, params);
         if(res.rowCount > 0){
             return({rows: res.rows});
         }else{
