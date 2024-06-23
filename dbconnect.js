@@ -63,10 +63,10 @@ module.exports.LogIn = async(data)=>{
 
 module.exports.Get = async(data)=>{
     const cols = data.cols.join(', ');
-    let q = 'SELECT ' + cols + ' FROM users';
+    let q = 'SELECT ' + cols + ' FROM users WHERE public=1';
     let params = [];
     if(data.condition){
-        q += ' WHERE ' + data.condition + '=$3';
+        q += ' AND ' + data.condition + '=$3';
         params.push(data.value);
     }
     try{
