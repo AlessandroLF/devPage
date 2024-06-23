@@ -47,8 +47,9 @@ module.exports.SignUp = async(data)=>{
 
 module.exports.LogIn = async(data)=>{
     try{
-        const res = await pool.query('SELECT password FROM users WHERE name=$1;', [data.name]);
+        const res = await pool.query('SELECT name, password FROM users WHERE name=$1;', [data.name]);
         const user = res.rows[0];
+        console.log('User fetched: ', user)
         const match = await argon2.verify(user.password, data.password);
         if(match)
             return({suc: true});
