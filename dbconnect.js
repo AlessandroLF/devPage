@@ -38,6 +38,7 @@ module.exports.SignUp = async(data)=>{
             console.log('Unexpected response not error', res);
     }catch(e){
         const detail = e.detail;
+        console.log('err detail:', detail);
         const key = detail.split('(')[1].split(')')[0];
         const val = detail.split('(')[2].split(')')[0];
         return({err: 'Duplicate account', key: key, val: val});

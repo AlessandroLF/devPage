@@ -47,6 +47,7 @@ const server = http.createServer((req, res) => {
       });
       req.on('end', async()=>{
           const data = JSON.parse(body);
+          console.log('Data: ', data);
           const ret = await db.LogIn(data);
           if(ret.err){
             console.log('Error on querry: ', ret.err);
