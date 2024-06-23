@@ -63,7 +63,7 @@ module.exports.LogIn = async(data)=>{
 
 module.exports.Get = async(data)=>{
     const cols = data.cols.join(', ');
-    let q = 'SELECT ' + cols + ' FROM users WHERE public=1';
+    let q = 'SELECT ' + cols + ' FROM users WHERE public=B"1"';
     let params = [];
     if(data.condition){
         q += ' AND ' + data.condition + '=$3';
