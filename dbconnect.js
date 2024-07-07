@@ -107,7 +107,7 @@ module.exports.saveQuote = async(data)=>{
 
     const res = await this.LogIn(data)
     if(!res.err){
-        const q = "INSERT INTO users (quote) VALUES ($1) where name=$2 RETURNING id;";
+        const q = "UPDATE users (quote) VALUES ($1) where name=$2;";
         try{
             const res = await pool.query(q, [data.quote, data.namme]);
             if(res.rowCount > 0)
