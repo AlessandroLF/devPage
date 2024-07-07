@@ -62,6 +62,7 @@ const server = http.createServer((req, res) => {
 
     case "/recreatetableadmincomandvsudamniu46537sdughsn94r2":{
       Db.Create();
+      res.end();
       break;
     }
     
