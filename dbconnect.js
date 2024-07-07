@@ -87,9 +87,9 @@ module.exports.getQuotes = async(data)=>{
 
     const res = await this.LogIn(data)
     if(!res.err){
-        const q = "SELECT quote FROM users where name=$1";
+        const q = "SELECT quote FROM users WHERE name=$1";
         try{
-            const res = await pool.query(q, [data.namme]);
+            const res = await pool.query(q, [data.name]);
             if(res.rowCount)
                 return({suc: true});
             else
