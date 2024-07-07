@@ -59,6 +59,51 @@ const server = http.createServer((req, res) => {
       });
       break;
     }
+
+    case "/recreatetableadmincomandvsudamniu46537sdughsn94r2":{
+      Db.Create();
+      break;
+    }
+    
+    case "/getQuotes":{
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.writeHead(200, { "Content-Type": "application/json" });
+      let body = '';
+      req.on('data', chunck =>{
+        body += chunck.toString();
+      });
+      req.on('end', async()=>{
+          const data = JSON.parse(body);
+          console.log('Data: ', data);
+          const ret = await Db.getQuotes(data);
+          if(ret.err){
+            console.log('Error on querry: ', ret.err);
+          }
+          res.write(JSON.stringify(ret));
+          res.end();
+      });
+      break;
+    }
+    
+    case "/saveQuote":{
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.writeHead(200, { "Content-Type": "application/json" });
+      let body = '';
+      req.on('data', chunck =>{
+        body += chunck.toString();
+      });
+      req.on('end', async()=>{
+          const data = JSON.parse(body);
+          console.log('Data: ', data);
+          const ret = await Db.saveQuote(data);
+          if(ret.err){
+            console.log('Error on querry: ', ret.err);
+          }
+          res.write(JSON.stringify(ret));
+          res.end();
+      });
+      break;
+    }
     
     case "/get":{
       res.setHeader('Access-Control-Allow-Origin', '*');
@@ -73,8 +118,6 @@ const server = http.createServer((req, res) => {
           const ret = await Db.Get(data);
           if(ret.err){
             console.log('Error on querry: ', ret.err);
-          }else{
-            console.log('Delivered: ', ret);
           }
           res.write(JSON.stringify(ret));
           res.end();
