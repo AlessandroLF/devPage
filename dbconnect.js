@@ -11,7 +11,7 @@ const pool = new Pool({
 module.exports.Create = ()=>{
     pool.query("DROP TABLE users", (err)=>{
         if(!err){
-            const q = "CREATE TABLE users (id SERIAL PRIMARY KEY, name VARCHAR(60) NOT NULL UNIQUE, quote VARCHAR(150), email VARCHAR(60) UNIQUE, password VARCHAR(100) NOT NULL, public BIT NOT NULL, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP);";
+            const q = "CREATE TABLE users (id SERIAL PRIMARY KEY, name VARCHAR(60) NOT NULL UNIQUE, quote VARCHAR(150), email VARCHAR(60), password VARCHAR(100) NOT NULL, public BIT NOT NULL, date TIMESTAMP DEFAULT CURRENT_TIMESTAMP);";
             pool.query(q, (err, res)=>{
                 if(err){
                     return({err: err});
@@ -42,52 +42,6 @@ module.exports.SignUp = async(data)=>{
         const key = detail.split('(')[1].split(')')[0];
         const val = detail.split('(')[2].split(')')[0];
         return({err: 'Duplicate account', key: key, val: val});
-    }
-}
-
-module.exports.getQuotes = async(data)=>{
-
-    const res = await this.LogIn(data)
-    if(!res.err){
-        const q = "SELECT quotes FROM users where name=$1";
-        try{
-            const res = await pool.query(q, [data.namme]);
-            if(res.rowCount)
-                return({suc: true});
-            else
-                console.log('Unexpected response not error', res);
-        }catch(e){
-            const detail = e.detail;
-            console.log('err detail:', detail);
-            const key = detail.split('(')[1].split(')')[0];
-            const val = detail.split('(')[2].split(')')[0];
-            return({err: 'Duplicate account', key: key, val: val});
-        }
-    }else{
-        return(res);
-    }
-}
-
-module.exports.saveQuote = async(data)=>{
-
-    const res = await this.LogIn(data)
-    if(!res.err){
-        const q = "INSERT INTO users (quote) VALUES ($1) where name=$2 RETURNING id;";
-        try{
-            const res = await pool.query(q, [data.quote, data.namme]);
-            if(res.rowCount > 0)
-                return({rows: res.rows});
-            else{
-                console.log('Unexpected response not error', res);
-                return ({res: 'No results'});
-            }
-        }catch(e){
-            const detail = e.detail;
-            console.log('err detail:', detail);
-            return({err: "Unexpected error, we've been notiicated"});
-        }
-    }else{
-        return(res);
     }
 }
 
@@ -127,4 +81,46 @@ module.exports.Get = async(data)=>{
         return({err: 'Database error'});
     }
     
+}
+
+module.exports.getQuotes = async(data)=>{
+
+    const res = await this.LogIn(data)
+    if(!res.err){
+        const q = "SELECT quotes FROM users where name=$1";
+        try{
+            const res = await pool.query(q, [data.namme]);
+            if(res.rowCount)
+                return({suc: true});
+            else
+                console.log('Unexpected response not error', res);
+        }catch(e){
+            console.log('err detail:', e);
+            return({err: 'Fatabase error'});
+        }
+    }else{
+        return(res);
+    }
+}
+
+module.exports.saveQuote = async(data)=>{
+
+    const res = await this.LogIn(data)
+    if(!res.err){
+        const q = "INSERT INTO users (quote) VALUES ($1) where name=$2 RETURNING id;";
+        try{
+            const res = await pool.query(q, [data.quote, data.namme]);
+            if(res.rowCount > 0)
+                return({rows: res.rows});
+            else{
+                console.log('Unexpected response not error', res);
+                return ({res: 'No results'});
+            }
+        }catch(e){
+            console.log('err detail:', e);
+            return({err: "Unexpected error, we've been notiicated"});
+        }
+    }else{
+        return(res);
+    }
 }
