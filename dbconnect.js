@@ -87,7 +87,7 @@ module.exports.getQuotes = async(data)=>{
 
     const res = await this.LogIn(data)
     if(!res.err){
-        const q = "SELECT quotes FROM users where name=$1";
+        const q = "SELECT users.quotes FROM users where name=$1";
         try{
             const res = await pool.query(q, [data.namme]);
             if(res.rowCount)
@@ -107,9 +107,9 @@ module.exports.saveQuote = async(data)=>{
 
     const res = await this.LogIn(data)
     if(!res.err){
-        const q = "UPDATE users set quote=$1 where name=$2;";
+        const q = "UPDATE users SET quote=$1 where name=$2;";
         try{
-            const res = await pool.query(q, [data.quote, data.namme]);
+            const res = await pool.query(q, [data.quote, data.name]);
             if(res.rowCount > 0)
                 return({rows: res.rows});
             else{
