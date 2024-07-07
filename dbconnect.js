@@ -91,7 +91,7 @@ module.exports.getQuotes = async(data)=>{
         try{
             const res = await pool.query(q, [data.name]);
             if(res.rowCount)
-                return({suc: true});
+                return({rows: res.rows});
             else
                 console.log('Unexpected response not error', res);
         }catch(e){
